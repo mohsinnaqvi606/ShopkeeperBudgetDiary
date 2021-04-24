@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopkeeperBudgetDiary">
-        <activity android:name=".Activities.Add_Product_Activity"></activity>
+        <activity android:name=".Activities.Edit_Product_Activity"></activity>
+        <activity android:name=".Activities.Add_Product_Activity" />
         <activity android:name=".Activities.Purchased_Product_Activity" />
         <activity android:name=".Activities.DashboardActivity" />
         <activity android:name=".Activities.SplashActivity">
