@@ -62,22 +62,29 @@ public class PurchasedProduct_RecycleView_Adapter extends RecyclerView.Adapter<P
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] options = {"View/Update", "Sell", "Delete", "Cancel"};
+
+
+                String ViewUpdate = mContext.getResources().getString(R.string.ViewUpdate);
+                String Sell = mContext.getResources().getString(R.string.Sell);
+                String Delete = mContext.getResources().getString(R.string.Delete);
+                String Cancel = mContext.getResources().getString(R.string.Cancel);
+
+                final CharSequence[] options = {ViewUpdate, Sell, Delete, Cancel};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Product Options");
+                builder.setTitle(R.string.ProductOptions);
 
                 builder.setItems(options, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
 
-                        if (options[item].equals("View/Update")) {
+                        if (item == 0) {
                             Intent intent = new Intent(mContext, Edit_Product_Activity.class);
                             intent.putExtra("Id", products_list.get(position).ID + "");
                             mContext.startActivity(intent);
                             dialog.dismiss();
-                        } else if (options[item].equals("Sell")) {
+                        } else if (item == 1) {
                             Double remainingItems = Double.parseDouble(products_list.get(position).Quantity);
                             if (remainingItems > 0) {
                                 Intent intent = new Intent(mContext, BuyerForm_Activity.class);
@@ -87,7 +94,7 @@ public class PurchasedProduct_RecycleView_Adapter extends RecyclerView.Adapter<P
                                 Toast.makeText(mContext, "No Item Left", Toast.LENGTH_SHORT).show();
                             }
                             dialog.dismiss();
-                        } else if (options[item].equals("Delete")) {
+                        } else if (item == 2) {
                             int isDeleted = db.delete_Product(products_list.get(position).ID + "");
                             if (isDeleted == 1) {
                                 products_list.remove(position);
@@ -95,7 +102,7 @@ public class PurchasedProduct_RecycleView_Adapter extends RecyclerView.Adapter<P
                                 notifyDataSetChanged();
                             }
                             dialog.dismiss();
-                        } else if (options[item].equals("Cancel")) {
+                        } else if (item == 3) {
                             dialog.dismiss();
                         }
                     }

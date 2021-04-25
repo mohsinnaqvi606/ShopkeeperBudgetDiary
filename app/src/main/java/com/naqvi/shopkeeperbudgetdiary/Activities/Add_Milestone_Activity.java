@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class Add_Milestone_Activity extends AppCompatActivity {
@@ -34,8 +35,9 @@ public class Add_Milestone_Activity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
-        getSupportActionBar().setTitle("Add Milestone");
+        getSupportActionBar().setTitle(R.string.AddMilestone);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -62,6 +64,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
                                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                                 String f = df.format(c.getTime());
+
                                 binding.etStartingDate.getEditText().setText(f);
                             }
                         }, year, month, day);

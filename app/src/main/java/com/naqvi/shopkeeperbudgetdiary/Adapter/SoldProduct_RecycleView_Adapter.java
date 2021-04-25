@@ -63,17 +63,20 @@ public class SoldProduct_RecycleView_Adapter extends RecyclerView.Adapter<SoldPr
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] options = {"Delete", "Cancel"};
+                String Delete = mContext.getResources().getString(R.string.Delete);
+                String Cancel = mContext.getResources().getString(R.string.Cancel);
+
+                final CharSequence[] options = {Delete, Cancel};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Product Options");
+                builder.setTitle(R.string.ProductOptions);
 
                 builder.setItems(options, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
 
-                        if (options[item].equals("Delete")) {
+                        if (item == 0) {
                             Product p = db.get_ProductById(products_list.get(position).ProductID + "");
                             double totalQuantity = Double.parseDouble(p.Quantity);
                             double newQuantity = Double.parseDouble(products_list.get(position).Quantity);
@@ -87,7 +90,7 @@ public class SoldProduct_RecycleView_Adapter extends RecyclerView.Adapter<SoldPr
                                 notifyDataSetChanged();
                             }
                             dialog.dismiss();
-                        } else if (options[item].equals("Cancel")) {
+                        } else if (item == 1) {
                             dialog.dismiss();
                         }
                     }

@@ -34,7 +34,7 @@ public class SoldProduct_Activity extends AppCompatActivity {
         setContentView(view);
 
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
-        getSupportActionBar().setTitle("Sold product");
+        getSupportActionBar().setTitle(R.string.SoldProducts);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 

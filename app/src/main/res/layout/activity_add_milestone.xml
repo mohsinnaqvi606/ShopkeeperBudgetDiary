@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Starting Date"
+            android:text="@string/StartingDate"
             android:textColor="@color/et_title"
             android:textSize="15dp" />
 
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Ending Date"
+            android:text="@string/EndingDate"
             android:textColor="@color/et_title"
             android:textSize="15dp" />
 
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Total Price"
+            android:text="@string/TotalPrice"
             android:textColor="@color/et_title"
             android:textSize="15dp" />
 

@@ -27,12 +27,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="cursive"
-            android:text="Shopkeepr\nBudget Diary"
+            android:text="@string/Shopkeeper"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="26sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="cursive"
+            android:text="@string/BudgetDiary"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout_fullname"
@@ -45,10 +55,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:digits="abcdefghijklmnopqrstuvwxyz"
                 android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
                 android:drawablePadding="10dp"
-                android:hint="Full Name"
-                android:inputType="textEmailAddress"
+                android:hint="@string/FullName"
+                android:inputType="textPersonName"
                 android:maxLength="50"
                 android:textColor="#191944"
                 android:textSize="15dp" />
@@ -67,7 +78,7 @@
                 android:layout_height="50dp"
                 android:drawableLeft="@drawable/ic_email_black_24dp"
                 android:drawablePadding="10dp"
-                android:hint="Email"
+                android:hint="@string/Email"
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
                 android:textColor="#191944"
@@ -90,7 +101,7 @@
                 android:drawableStart="@drawable/ic_lock_black_24dp"
                 android:drawableLeft="@drawable/ic_lock_black_24dp"
                 android:drawablePadding="10dp"
-                android:hint="Password"
+                android:hint="@string/Password"
                 android:inputType="textPassword"
                 android:maxLength="30"
                 android:textColor="#191944"
@@ -104,7 +115,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button1"
-            android:text="Register"
+            android:text="@string/Register"
             android:textAllCaps="false"
             android:textColor="#191944"
             android:textSize="18sp" />
@@ -122,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Already have an account?"
+                android:text="@string/Alreadyhaveanaccount"
                 android:textAlignment="center"
                 android:textColor="#191944"
                 android:textSize="14sp" />
@@ -131,9 +142,9 @@
                 android:id="@+id/tv_newUser2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text=" Login"
                 android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/Login"
                 android:textAlignment="center"
                 android:textColor="#191944"
                 android:textSize="15sp"

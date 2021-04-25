@@ -31,7 +31,7 @@ public class Purchased_Product_Activity extends AppCompatActivity {
         setContentView(view);
 
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
-        getSupportActionBar().setTitle("Purchased product");
+        getSupportActionBar().setTitle(R.string.Purchasedproduct);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 

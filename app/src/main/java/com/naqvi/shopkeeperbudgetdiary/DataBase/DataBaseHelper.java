@@ -452,7 +452,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         Intent intent = new Intent(context, Milestone_Detail_Activity.class);
         intent.putExtra("Id", m.ID + "");
-        pref.save_Id(m.ID+"");
+        pref.save_Id(m.ID + "");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         builder.addAction(R.drawable.img5, "Show Details", pendingIntent);
 
@@ -464,5 +464,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             builder.setChannelId(channelId);
         }
         manager.notify(id, builder.build());
+    }
+
+    public boolean checkEmailExistance(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("Select * From Users where Email = '" + email + "'", null);
+        boolean isExist = res.moveToNext();
+        res.close();
+        db.close();
+
+        return isExist;
     }
 }

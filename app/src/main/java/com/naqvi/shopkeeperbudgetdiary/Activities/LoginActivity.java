@@ -3,6 +3,7 @@ package com.naqvi.shopkeeperbudgetdiary.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -11,6 +12,8 @@ import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
 import com.naqvi.shopkeeperbudgetdiary.Models.User;
 import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
 import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityLoginBinding;
+
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
+
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
 
@@ -78,4 +82,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

@@ -46,7 +46,7 @@ public class Edit_Product_Activity extends AppCompatActivity {
         p = db.get_ProductById(Id);
 
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
-        getSupportActionBar().setTitle("Add Product");
+        getSupportActionBar().setTitle(R.string.EditProduct);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 

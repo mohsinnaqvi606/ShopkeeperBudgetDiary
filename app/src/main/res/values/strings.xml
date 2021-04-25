@@ -1,3 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Shopkeeper Budget Diary</string>
+    <string name="StartingDate">Starting Date</string>
+    <string name="EndingDate">Ending Date</string>
+    <string name="TotalPrice">Total Price</string>
+    <string name="UploadPicture">Upload Picture</string>
+    <string name="Title">Title</string>
+    <string name="Price">Price</string>
+    <string name="Quantity">Quantity</string>
+    <string name="Address">Address</string>
+    <string name="BuyerName">Buyer Name</string>
+    <string name="BuyerPhoneNo">Buyer No</string>
+    <string name="SellingPrice">Selling Price</string>
+    <string name="ProductQuantity">Product Quantity</string>
+    <string name="PurchasedProducts">Purchased Products</string>
+    <string name="Totalproduct">Total product : </string>
+    <string name="Totalmilestons">Total milestons : </string>
+    <string name="SoldProducts">Sold Products</string>
+    <string name="Milestones">Milestones</string>
+    <string name="BudgetDiary">Budget Diary</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="Dontthaveanaccount">Dont\'t have an account?</string>
+    <string name="Signup"> Signup</string>
+    <string name="Percentage">Percentage</string>
+    <string name="Status">Status</string>
+    <string name="Description">Description</string>
+    <string name="AchievedPrice">Achieved Price</string>
+    <string name="Shopkeeper">Shopkeeper</string>
+    <string name="FullName">Full Name</string>
+    <string name="Register">Register</string>
+    <string name="Alreadyhaveanaccount">Already have an account?</string>
+    <string name="Qty">Qty</string>
+    <string name="Date">Date</string>
+    <string name="Time">Time</string>
+    <string name="AddMilestone">Add Milestone</string>
+    <string name="AddProduct">Add Product</string>
+    <string name="BuyerForm">Buyer Form</string>
+    <string name="Dashboard">Dashboard</string>
+    <string name="EditMilestone">Edit Milestone</string>
+    <string name="EditProduct">Edit Product</string>
+    <string name="MilestoneDetail">Milestone Detail</string>
+    <string name="Purchasedproduct">Purchased product</string>
+    <string name="MilestoneOptions">Milestone Options</string>
+    <string name="View">View</string>
+    <string name="Update">Update</string>
+    <string name="Delete">Delete</string>
+    <string name="Cancel">Cancel</string>
+    <string name="ViewUpdate">View/Update</string>
+    <string name="Sell">Sell</string>
+    <string name="ProductOptions">ProductOptions</string>
+
+
+
+
 </resources>

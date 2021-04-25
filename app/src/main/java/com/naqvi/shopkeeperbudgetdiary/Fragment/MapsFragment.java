@@ -2,8 +2,11 @@ package com.naqvi.shopkeeperbudgetdiary.Fragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,20 +24,31 @@ public class MapsFragment extends Fragment {
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            LatLng pakistan = new LatLng(36, 73);
+            googleMap.addMarker(new MarkerOptions().position(pakistan).title("Marker in Pakistan"));
+            //  googleMap.moveCamera(CameraUpdateFactory.newLatLng(pakistan));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pakistan, 13));
+
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            googleMap.setMyLocationEnabled(true);
+
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng point) {
+                    googleMap.clear();
+                    MarkerOptions marker = new MarkerOptions()
+                            .position(new LatLng(point.latitude, point.longitude))
+                            .title("Marker in Pakistan");
+                    googleMap.addMarker(marker);
+                    System.out.println(point.latitude + "---" + point.longitude);
+                }
+            });
         }
     };
 

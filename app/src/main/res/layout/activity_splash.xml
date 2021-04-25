@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Shopkeepr\nBudget Diary"
+        android:text="@string/Shopkeeper"
         android:textAlignment="center"
         android:fontFamily="cursive"
         android:textColor="@color/white"
@@ -30,5 +30,20 @@
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/tv_Title2"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/BudgetDiary"
+        android:textAlignment="center"
+        android:fontFamily="cursive"
+        android:textColor="@color/white"
+        android:layout_below="@id/tv_Title"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="36sp" />
+
 
 </RelativeLayout>

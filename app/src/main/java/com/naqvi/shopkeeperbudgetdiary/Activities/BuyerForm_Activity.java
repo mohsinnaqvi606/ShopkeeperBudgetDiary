@@ -37,7 +37,7 @@ public class BuyerForm_Activity extends AppCompatActivity {
 
         productId = getIntent().getStringExtra("Id");
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
-        getSupportActionBar().setTitle("Buyer Form");
+        getSupportActionBar().setTitle(R.string.BuyerForm);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 

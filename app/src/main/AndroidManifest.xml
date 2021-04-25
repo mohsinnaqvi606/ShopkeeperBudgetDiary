@@ -34,9 +34,6 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
         <activity android:name=".Activities.Edit_Milestone_Activity" />
         <activity android:name=".Activities.Add_Milestone_Activity" />
@@ -45,7 +42,9 @@
         <activity android:name=".Activities.SoldProduct_Activity" />
         <activity android:name=".Activities.BuyerForm_Activity" />
         <activity android:name=".Activities.Edit_Product_Activity" />
-        <activity android:name=".Activities.Add_Product_Activity" />
+        <activity android:name=".Activities.Add_Product_Activity"
+            android:isScrollContainer="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Activities.Purchased_Product_Activity" />
         <activity android:name=".Activities.DashboardActivity" />
         <activity android:name=".Activities.SplashActivity">
@@ -59,8 +58,9 @@
         <activity android:name=".Activities.LoginActivity" />
 
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB2mLtP5XYhIq1KB1TEhE60wlcDxQSeUWA" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyARmdNHVeBlKswnuElTxxQpBXkSeV3PNaA" />
+
 
         <uses-library android:name="com.google.android.maps" />
     </application>

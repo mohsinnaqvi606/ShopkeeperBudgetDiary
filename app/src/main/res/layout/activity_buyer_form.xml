@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Buyer Name"
+            android:text="@string/BuyerName"
             android:textColor="@color/et_title"
             android:textSize="15dp" />
 
@@ -31,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvwxyz"
                 android:textColor="#191944"
                 android:textSize="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -39,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Buyer Phone No."
+            android:text="@string/BuyerPhoneNo"
             android:textColor="@color/et_title"
             android:textSize="15dp" />
 
@@ -62,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Selling Price"
+            android:text="@string/SellingPrice"
             android:textColor="@color/et_title"
             android:textSize="15dp" />
 
@@ -85,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Product Quantity"
+            android:text="@string/ProductQuantity"
             android:textColor="@color/et_title"
             android:textSize="15dp" />
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">يوميات الميزانية لصاحب المتجر</string>
+    <string name="StartingDate">تاريخ البدء</string>
+    <string name="EndingDate">تاريخ الانتهاء</string>
+    <string name="TotalPrice">السعر الكلي</string>
+    <string name="UploadPicture">تحميل الصورة</string>
+    <string name="Title">لقب</string>
+    <string name="Price">سعر</string>
+    <string name="Quantity">كمية</string>
+    <string name="Address">عنوان</string>
+    <string name="BuyerName">اسم المشتري</string>
+    <string name="BuyerPhoneNo">رقم هاتف المشتري</string>
+    <string name="SellingPrice">سعر البيع</string>
+    <string name="ProductQuantity">كمية المنتج</string>
+    <string name="PurchasedProducts">المنتجات المشتراة</string>
+    <string name="Totalproduct">إجمالي المنتج: </string>
+    <string name="Totalmilestons">إجمالي المعالم: </string>
+    <string name="SoldProducts">المنتجات المباعة</string>
+    <string name="Milestones">معالم</string>
+    <string name="Shopkeeper">صاحب متجر</string>
+    <string name="BudgetDiary">يوميات الميزانية</string>
+    <string name="Email">بريد إلكتروني</string>
+    <string name="Password">كلمه السر</string>
+    <string name="Login">تسجيل الدخول</string>
+    <string name="Dontthaveanaccount">ليس لديك حساب؟</string>
+    <string name="Signup"> اشتراك</string>
+    <string name="Percentage">نسبة مئوية</string>
+    <string name="AchievedPrice">السعر المحقق</string>
+    <string name="Status">حالة</string>
+    <string name="Description">وصف</string>
+    <string name="FullName">الاسم بالكامل</string>
+    <string name="Register">يسجل</string>
+    <string name="Alreadyhaveanaccount">هل لديك حساب؟</string>
+    <string name="Qty">الكمية</string>
+    <string name="Date">تاريخ</string>
+    <string name="Time">زمن</string>
+    <string name="AddMilestone">إضافة معلم</string>
+    <string name="AddProduct">أضف منتج</string>
+    <string name="BuyerForm">نموذج المشتري</string>
+    <string name="Dashboard">لوحة القيادة</string>
+    <string name="EditMilestone">تحرير حدث</string>
+    <string name="EditProduct">Edit Product</string>
+    <string name="MilestoneDetail">تفاصيل المعلم</string>
+    <string name="Purchasedproduct">المنتج الذي تم شراؤه</string>
+    <string name="View">رؤية</string>
+    <string name="MilestoneOptions">خيارات المعالم</string>
+    <string name="Update">تحديث</string>
+    <string name="Delete">حذف</string>
+    <string name="Cancel">يلغي</string>
+    <string name="ViewUpdate">عرض / تحديث</string>
+    <string name="Sell">يبيع</string>
+    <string name="ProductOptions">خيارات المنتج</string>
+
+
+</resources>

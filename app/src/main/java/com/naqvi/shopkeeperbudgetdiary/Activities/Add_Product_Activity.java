@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
+import com.naqvi.shopkeeperbudgetdiary.Fragment.MapsFragment;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
 import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.ImageUtil;
@@ -38,7 +39,7 @@ public class Add_Product_Activity extends AppCompatActivity {
         setContentView(view);
 
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
-        getSupportActionBar().setTitle("Add Product");
+        getSupportActionBar().setTitle(R.string.AddProduct);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -49,14 +50,11 @@ public class Add_Product_Activity extends AppCompatActivity {
             }
         });
 
-        binding.etAddress.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Add_Product_Activity.this,Map_Activity.class);
-                startActivity(intent);
-            }
-        });
-
+        MapsFragment fragment = new MapsFragment();
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(binding.fragmentContainerView.getId(), fragment, null)
+                .commit();
     }
 
 
@@ -77,7 +75,7 @@ public class Add_Product_Activity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-               // Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                // Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             } else {

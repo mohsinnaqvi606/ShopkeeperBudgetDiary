@@ -64,27 +64,33 @@ public class Milestone_RecycleView_Adapter extends RecyclerView.Adapter<Mileston
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] options = {"View", "Update", "Delete", "Cancel"};
+
+                String View = mContext.getResources().getString(R.string.View);
+                String Update = mContext.getResources().getString(R.string.Update);
+                String Delete = mContext.getResources().getString(R.string.Delete);
+                String Cancel = mContext.getResources().getString(R.string.Cancel);
+
+                final CharSequence[] options = {View, Update, Delete, Cancel};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Milestone Options");
+                builder.setTitle(R.string.MilestoneOptions);
 
                 builder.setItems(options, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
 
-                        if (options[item].equals("View")) {
+                        if (item == 0) {
                             Intent intent = new Intent(mContext, Milestone_Detail_Activity.class);
                             pref.save_Id(milestone_list.get(position).ID + "");
                             mContext.startActivity(intent);
                             dialog.dismiss();
-                        } else if (options[item].equals("Update")) {
+                        } else if (item == 1) {
                             Intent intent = new Intent(mContext, Edit_Milestone_Activity.class);
                             intent.putExtra("Id", milestone_list.get(position).ID + "");
                             mContext.startActivity(intent);
                             dialog.dismiss();
-                        } else if (options[item].equals("Delete")) {
+                        } else if (item == 2) {
                             int isDeleted = db.delete_Milestone(milestone_list.get(position).ID + "");
                             if (isDeleted == 1) {
                                 milestone_list.remove(position);
@@ -92,7 +98,7 @@ public class Milestone_RecycleView_Adapter extends RecyclerView.Adapter<Mileston
                                 notifyDataSetChanged();
                             }
                             dialog.dismiss();
-                        } else if (options[item].equals("Cancel")) {
+                        } else if (item == 3) {
                             dialog.dismiss();
                         }
                     }

@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.naqvi.shopkeeperbudgetdiary.R;
 
+import java.util.Locale;
+
 public class SplashActivity extends AppCompatActivity {
 
     //Duration of wait
@@ -30,4 +32,5 @@ public class SplashActivity extends AppCompatActivity {
 
 
     }
+
 }

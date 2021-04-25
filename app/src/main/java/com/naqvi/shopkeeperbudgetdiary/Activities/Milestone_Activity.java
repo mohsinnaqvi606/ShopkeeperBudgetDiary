@@ -35,7 +35,7 @@ public class Milestone_Activity extends AppCompatActivity {
         setContentView(view);
 
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
-        getSupportActionBar().setTitle("Milestones");
+        getSupportActionBar().setTitle(R.string.Milestones);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
