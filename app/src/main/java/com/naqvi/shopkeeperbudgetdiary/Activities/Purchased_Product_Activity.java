@@ -57,7 +57,8 @@ public class Purchased_Product_Activity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         products_list = db.get_Products();
-        adapter.notifyDataSetChanged();
+        adapter = new PurchasedProduct_RecycleView_Adapter(this, products_list);
+        binding.recycleView.setAdapter(adapter);
     }
 
     @Override

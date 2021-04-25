@@ -134,7 +134,7 @@ public class BuyerForm_Activity extends AppCompatActivity {
                 p.ProductID = productId;
                 p.SellingPrice = sellingPrice;
                 p.Quantity = productQuantity;
-                p.Margin = margin + "";
+                p.Margin = (margin * Double.parseDouble(productQuantity)) + "";
                 boolean isSaved = db.insert_SellProduct(p);
 
                 if (isSaved) {

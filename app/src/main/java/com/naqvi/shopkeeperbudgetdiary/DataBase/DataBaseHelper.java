@@ -1,15 +1,24 @@
 package com.naqvi.shopkeeperbudgetdiary.DataBase;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.naqvi.shopkeeperbudgetdiary.Activities.Milestone_Detail_Activity;
 import com.naqvi.shopkeeperbudgetdiary.Models.Milestone;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
 import com.naqvi.shopkeeperbudgetdiary.Models.SellProduct;
 import com.naqvi.shopkeeperbudgetdiary.Models.User;
+import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
 
 import java.util.ArrayList;
@@ -105,9 +114,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long result = db.insert(Table_SellProducts, null, contentValues);
 
         db.close();
+        calculate_Milestone();
         if (result == -1) {
             return false;
         } else {
+            calculate_Milestone();
             return true;
         }
     }
@@ -142,6 +153,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         isExist = res.moveToNext();
         res.close();
         db.close();
+        calculate_Milestone();
         return isExist;
     }
 
@@ -245,7 +257,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put("Email", pref.get_Email());
         int isUpdated = db.update(Table_Milestones, contentValues, "ID = ?", new String[]{m.ID + ""});
         db.close();
-
         return isUpdated;
     }
 
@@ -352,16 +363,90 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public Integer delete_SellProduct(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(Table_SellProducts, "ID = ?", new String[]{id});
-
         db.close();
+        calculate_Milestone();
         return res;
     }
 
     public Integer delete_Milestone(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(Table_Milestones, "ID = ?", new String[]{id});
-
         db.close();
         return res;
+    }
+
+
+    public void calculate_Milestone() {
+        ArrayList<Milestone> milestonesList = get_Milestones();
+        Milestone m = new Milestone();
+        SQLiteDatabase db;
+        Cursor res;
+        Double margin = 0.0;
+        String query;
+        for (int i = 0; i < milestonesList.size(); i++) {
+            m = milestonesList.get(i);
+            db = this.getWritableDatabase();
+            query = "Select Sum(Margin) from " + Table_SellProducts + " where Email = '" + pref.get_Email() + "' and Date >= '" + m.StartDate + "' and DATE <= '" + m.EndDate + "'";
+            res = db.rawQuery(query, null);
+            if (res.moveToNext()) {
+                try {
+                    margin += Double.parseDouble(res.getString(0));
+                    double milestonePrice = Double.parseDouble(m.TotalPrice);
+                    if (margin < milestonePrice) {
+                        m.AchievedPrice = margin + "";
+                        m.Percentage = ((margin * 100) / Double.parseDouble(m.TotalPrice)) + "";
+                        m.Status = "Incomplete";
+                    } else {
+                        m.Status = "Completed";
+                        m.Percentage = "100";
+                        m.AchievedPrice = m.TotalPrice;
+                        //  sendNotification(m);
+                        showNotification();
+                    }
+                    db.close();
+                    update_Milestone(m);
+                } catch (Exception e) {
+                    db.close();
+                    Toast.makeText(context, e.getMessage() + "", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                db.close();
+            }
+        }
+    }
+
+    void sendNotification(Milestone m) {
+
+        Intent intent = new Intent(context, Milestone_Detail_Activity.class);
+        intent.putExtra("Id", m.ID);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, m.ID + "")
+                .setSmallIcon(R.drawable.img4)
+                .setContentTitle("Milestone Achived")
+                .setContentText("you have achived milestone of " + m.TotalPrice)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.notify(m.ID, builder.build());
+    }
+
+    void showNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.img5)
+                        .setContentTitle("Notifications Example")
+                        .setContentText("This is a test notification");
+
+        Intent notificationIntent = new Intent(context, Milestone_Detail_Activity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 }

@@ -58,6 +58,16 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        db = new DataBaseHelper(this);
+
+        binding.tvtotal.setText("Total purchased: " + db.get_Products().size());
+        binding.tvsold.setText("Total sold: " + db.get_SellProducts().size());
+        binding.tvmilestone.setText("Total Milestones: " + db.get_Milestones().size());
+    }
+
+    @Override
     public void onBackPressed() {
         finish();
     }

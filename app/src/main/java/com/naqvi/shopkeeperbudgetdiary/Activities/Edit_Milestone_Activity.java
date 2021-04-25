@@ -15,8 +15,11 @@ import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
 import com.naqvi.shopkeeperbudgetdiary.Models.Milestone;
 import com.naqvi.shopkeeperbudgetdiary.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Edit_Milestone_Activity extends AppCompatActivity {
 
@@ -147,23 +150,49 @@ public class Edit_Milestone_Activity extends AppCompatActivity {
             }
 
         } else {
-            DataBaseHelper db = new DataBaseHelper(Edit_Milestone_Activity.this);
+            if (checkDates(startingDate, endingDate)) {
 
+                DataBaseHelper db = new DataBaseHelper(Edit_Milestone_Activity.this);
+                milestone.StartDate = startingDate;
+                milestone.EndDate = endingDate;
+                milestone.TotalPrice = price;
+                milestone.AchievedPrice = "0";
+                milestone.Percentage = "0";
+                milestone.Status = "Incomplete";
 
-            milestone.StartDate = startingDate;
-            milestone.EndDate = endingDate;
-            milestone.TotalDays = "";
-            milestone.TotalPrice = price;
-            milestone.AchievedPrice = "0";
-            milestone.Percentage = "0";
-            milestone.Status = "Incomplete";
-
-            int isinserted = db.update_Milestone(milestone);
-            if (isinserted == 1) {
-                finish();
+                int isinserted = db.update_Milestone(milestone);
+                if (isinserted == 1) {
+                    finish();
+                } else {
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Ending Date is smaller than Starting Date", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    boolean checkDates(String startingDate, String endingDate) {
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//        String inputString1 = s.sfrom;
+//        String inputString2 = s.eTo;
+
+        try {
+            Date date1 = df.parse(startingDate);
+            Date date2 = df.parse(endingDate);
+            long diff = date2.getTime() - date1.getTime();
+
+            long a = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            milestone.TotalDays = (a + 1) + "";
+            if (diff > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

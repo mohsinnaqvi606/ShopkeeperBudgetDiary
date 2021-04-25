@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.naqvi.shopkeeperbudgetdiary.Adapter.Milestone_RecycleView_Adapter;
 import com.naqvi.shopkeeperbudgetdiary.Adapter.PurchasedProduct_RecycleView_Adapter;
@@ -53,7 +54,28 @@ public class Milestone_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        milestonesList = db.get_Milestones();
+        adapter = new Milestone_RecycleView_Adapter(this, milestonesList);
+        binding.recycleView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

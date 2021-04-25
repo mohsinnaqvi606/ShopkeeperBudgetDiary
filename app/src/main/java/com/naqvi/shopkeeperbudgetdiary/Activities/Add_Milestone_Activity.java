@@ -16,12 +16,16 @@ import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityAddMilestoneBinding;
 import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityMilestoneBinding;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Add_Milestone_Activity extends AppCompatActivity {
     private ActivityAddMilestoneBinding binding;
     DatePickerDialog datePicker;
+    Milestone m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,8 @@ public class Add_Milestone_Activity extends AppCompatActivity {
         getSupportActionBar().setTitle("Add Milestone");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        m = new Milestone();
 
 
         binding.etStartingDate.getEditText().setOnClickListener(new View.OnClickListener() {
@@ -136,23 +142,48 @@ public class Add_Milestone_Activity extends AppCompatActivity {
             }
 
         } else {
-            DataBaseHelper db = new DataBaseHelper(Add_Milestone_Activity.this);
-            Milestone m = new Milestone();
+            if (checkDates(startingDate, endingDate)) {
+                DataBaseHelper db = new DataBaseHelper(Add_Milestone_Activity.this);
+                m.StartDate = startingDate;
+                m.EndDate = endingDate;
+                m.TotalPrice = price;
+                m.AchievedPrice = "0";
+                m.Percentage = "0";
+                m.Status = "Incomplete";
 
-            m.StartDate = startingDate;
-            m.EndDate = endingDate;
-            m.TotalDays = "";
-            m.TotalPrice = price;
-            m.AchievedPrice = "0";
-            m.Percentage = "0";
-            m.Status = "Incomplete";
-
-            boolean isinserted = db.insert_Milestone(m);
-            if (isinserted) {
-                finish();
+                boolean isinserted = db.insert_Milestone(m);
+                if (isinserted) {
+                    finish();
+                } else {
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Ending Date is smaller than Starting Date", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    boolean checkDates(String startingDate, String endingDate) {
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//        String inputString1 = s.sfrom;
+//        String inputString2 = s.eTo;
+
+        try {
+            Date date1 = df.parse(startingDate);
+            Date date2 = df.parse(endingDate);
+            long diff = date2.getTime() - date1.getTime();
+
+            long a = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            m.TotalDays = (a + 1) + "";
+            if (diff > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

@@ -3,6 +3,7 @@ package com.naqvi.shopkeeperbudgetdiary.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
@@ -40,5 +41,20 @@ public class Milestone_Detail_Activity extends AppCompatActivity {
         binding.tvPercentage.setText(m.Percentage);
         binding.tvAchievedPrice.setText(m.AchievedPrice);
         binding.tvStatus.setText(m.Status);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
