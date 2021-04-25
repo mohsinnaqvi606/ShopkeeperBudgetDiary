@@ -51,6 +51,14 @@
     <string name="ViewUpdate">عرض / تحديث</string>
     <string name="Sell">يبيع</string>
     <string name="ProductOptions">خيارات المنتج</string>
-
+    <string name="FieldRequired">حقل مطلوب</string>
+    <string name="dateSmaller">تاريخ الانتهاء أصغر من تاريخ البدء</string>
+    <string name="Somethingwentwrong">هناك خطأ ما</string>
+    <string name="cameraPermissionDenied">camera permission denied</string>
+    <string name="QuantityError">خطأ في الكمية</string>
+    <string name="PleaseSelectImage">الرجاء تحديد الصورة</string>
+    <string name="IncorrectCredentials">أوراق غير صحيحة</string>
+    <string name="InvalidEmail">بريد إلكتروني خاطئ</string>
+    <string name="EmailAlreadyRegistered">البريد الإلكتروني مسجل مسبقا</string>
 
 </resources>

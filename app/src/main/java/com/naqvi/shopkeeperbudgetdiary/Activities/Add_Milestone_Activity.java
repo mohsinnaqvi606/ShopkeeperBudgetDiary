@@ -62,7 +62,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
                                 c.set(Calendar.YEAR, year);
                                 c.set(Calendar.MONTH, monthOfYear);
                                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
                                 String f = df.format(c.getTime());
 
                                 binding.etStartingDate.getEditText().setText(f);
@@ -91,7 +91,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
                                 c.set(Calendar.YEAR, year);
                                 c.set(Calendar.MONTH, monthOfYear);
                                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
                                 String f = df.format(c.getTime());
                                 binding.etEndingDate.getEditText().setText(f);
                             }
@@ -121,25 +121,28 @@ public class Add_Milestone_Activity extends AppCompatActivity {
     }
 
     void saveData() {
+
+        String FieldRequired = getResources().getString(R.string.FieldRequired);
+
         String startingDate = binding.etStartingDate.getEditText().getText().toString();
         String endingDate = binding.etEndingDate.getEditText().getText().toString();
         String price = binding.etTotalPrice.getEditText().getText().toString();
         if (startingDate.isEmpty() || endingDate.isEmpty() || price.isEmpty()) {
 
             if (startingDate.isEmpty()) {
-                binding.etStartingDate.setError("Enter starting date");
+                binding.etStartingDate.setError(FieldRequired);
             } else {
                 binding.etStartingDate.setError(null);
             }
 
             if (endingDate.isEmpty()) {
-                binding.etEndingDate.setError("Enter ending date");
+                binding.etEndingDate.setError(FieldRequired);
             } else {
                 binding.etEndingDate.setError(null);
             }
 
             if (price.isEmpty()) {
-                binding.etTotalPrice.setError("Enter Price");
+                binding.etTotalPrice.setError(FieldRequired);
             } else {
                 binding.etTotalPrice.setError(null);
             }
@@ -159,16 +162,16 @@ public class Add_Milestone_Activity extends AppCompatActivity {
                     db.calculate_Milestone();
                     finish();
                 } else {
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.Somethingwentwrong, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Ending Date is smaller than Starting Date", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.dateSmaller, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     boolean checkDates(String startingDate, String endingDate) {
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
 //        String inputString1 = s.sfrom;
 //        String inputString2 = s.eTo;
 

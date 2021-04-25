@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
 import com.naqvi.shopkeeperbudgetdiary.Models.User;
+import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
 import com.naqvi.shopkeeperbudgetdiary.databinding.ActivitySignupBinding;
 
@@ -37,6 +38,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                String InvalidEmail = getResources().getString(R.string.InvalidEmail);
+
                 try {
                     Pattern pattern = Pattern.compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
                     Matcher matcher = pattern.matcher(s.toString());
@@ -45,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
                     if (res) {
                         binding.textInputLayoutEmail.setError(null);
                     } else {
-                        binding.textInputLayoutEmail.setError("Invalid Email");
+                        binding.textInputLayoutEmail.setError(InvalidEmail);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -77,6 +80,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void RegisterUser() {
+
+        String FieldRequired = getResources().getString(R.string.FieldRequired);
+        String InvalidEmail = getResources().getString(R.string.InvalidEmail);
+
         String name = binding.textInputLayoutFullname.getEditText().getText().toString();
         String email = binding.textInputLayoutEmail.getEditText().getText().toString();
         String password = binding.textInputLayoutPassword.getEditText().getText().toString();
@@ -85,21 +92,21 @@ public class SignupActivity extends AppCompatActivity {
 
 
             if (name.isEmpty()) {
-                binding.textInputLayoutFullname.setError("Enter your Name");
+                binding.textInputLayoutFullname.setError(FieldRequired);
             } else {
                 binding.textInputLayoutFullname.setError(null);
             }
 
             if (email.isEmpty()) {
-                binding.textInputLayoutEmail.setError("Enter your Email");
-            } else if (binding.textInputLayoutEmail.getError() == "Invalid Email") {
-                binding.textInputLayoutEmail.setError("Invalid Email");
+                binding.textInputLayoutEmail.setError(FieldRequired);
+            } else if (binding.textInputLayoutEmail.getError() == InvalidEmail) {
+                binding.textInputLayoutEmail.setError(InvalidEmail);
             } else {
                 binding.textInputLayoutEmail.setError(null);
             }
 
             if (password.isEmpty()) {
-                binding.textInputLayoutPassword.setError("Enter your Password");
+                binding.textInputLayoutPassword.setError(FieldRequired);
             } else {
                 binding.textInputLayoutPassword.setError(null);
             }
@@ -120,10 +127,10 @@ public class SignupActivity extends AppCompatActivity {
                     Intent intent = new Intent(SignupActivity.this, DashboardActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.Somethingwentwrong, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Email Already Registered", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.EmailAlreadyRegistered, Toast.LENGTH_SHORT).show();
             }
 
         }

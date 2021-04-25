@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
 import com.naqvi.shopkeeperbudgetdiary.Models.User;
+import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
 import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityLoginBinding;
 
@@ -47,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser() {
 
+        String FieldRequired = getResources().getString(R.string.FieldRequired);
+
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
 
@@ -55,13 +58,13 @@ public class LoginActivity extends AppCompatActivity {
 
         if (email.isEmpty() || password.isEmpty()) {
             if (email.isEmpty()) {
-                binding.textInputLayoutEmail.setError("Enter your Email");
+                binding.textInputLayoutEmail.setError(FieldRequired);
             } else {
                 binding.textInputLayoutEmail.setError(null);
             }
 
             if (password.isEmpty()) {
-                binding.textInputLayoutPassword.setError("Enter your Password");
+                binding.textInputLayoutPassword.setError(FieldRequired);
             } else {
                 binding.textInputLayoutPassword.setError(null);
             }
@@ -78,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                 startActivity(intent);
             } else {
-                Toast.makeText(this, "Incorrect credentials", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.IncorrectCredentials, Toast.LENGTH_SHORT).show();
             }
         }
     }

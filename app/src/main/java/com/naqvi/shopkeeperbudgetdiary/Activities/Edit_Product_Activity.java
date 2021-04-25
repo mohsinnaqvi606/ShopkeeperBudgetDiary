@@ -82,11 +82,10 @@ public class Edit_Product_Activity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             } else {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.cameraPermissionDenied, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -121,6 +120,9 @@ public class Edit_Product_Activity extends AppCompatActivity {
     }
 
     private void saveData() {
+
+        String FieldRequired = getResources().getString(R.string.FieldRequired);
+
         String title = binding.etTitle.getEditText().getText().toString();
         String price = binding.etPrice.getEditText().getText().toString();
         String quantity = binding.etQuantity.getEditText().getText().toString();
@@ -128,31 +130,31 @@ public class Edit_Product_Activity extends AppCompatActivity {
 
         if (title.isEmpty() || price.isEmpty() || quantity.isEmpty() || address.isEmpty() || bitmap == null) {
             if (title.isEmpty()) {
-                binding.etTitle.setError("Enter product title");
+                binding.etTitle.setError(FieldRequired);
             } else {
                 binding.etTitle.setError(null);
             }
 
             if (price.isEmpty()) {
-                binding.etPrice.setError("Enter product price");
+                binding.etPrice.setError(FieldRequired);
             } else {
                 binding.etPrice.setError(null);
             }
 
             if (quantity.isEmpty()) {
-                binding.etQuantity.setError("Enter product quantity");
+                binding.etQuantity.setError(FieldRequired);
             } else {
                 binding.etQuantity.setError(null);
             }
 
             if (address.isEmpty()) {
-                binding.etAddress.setError("Enter address");
+                binding.etAddress.setError(FieldRequired);
             } else {
                 binding.etAddress.setError(null);
             }
 
             if (bitmap == null) {
-                Toast.makeText(this, "Please select image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.PleaseSelectImage, Toast.LENGTH_SHORT).show();
             }
 
         } else {
@@ -172,7 +174,7 @@ public class Edit_Product_Activity extends AppCompatActivity {
             if (isUpdated == 1) {
                 finish();
             } else {
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.Somethingwentwrong, Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -51,6 +51,17 @@
     <string name="ViewUpdate">View/Update</string>
     <string name="Sell">Sell</string>
     <string name="ProductOptions">ProductOptions</string>
+    <string name="FieldRequired">Field Required</string>
+    <string name="dateSmaller">Ending Date is smaller than Starting Date</string>
+    <string name="Somethingwentwrong">Something went wrong</string>
+    <string name="cameraPermissionDenied">camera permission denied</string>
+    <string name="QuantityError">Quantity Error</string>
+    <string name="PleaseSelectImage">Please select image</string>
+    <string name="IncorrectCredentials">Incorrect credentials</string>
+    <string name="InvalidEmail">invalidEmail</string>
+    <string name="EmailAlreadyRegistered">Email Already Registered</string>
+
+
 
 
 

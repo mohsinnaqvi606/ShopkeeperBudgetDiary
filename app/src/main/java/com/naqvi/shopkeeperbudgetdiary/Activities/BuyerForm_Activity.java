@@ -20,6 +20,7 @@ import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityBuyerFormBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,45 +67,41 @@ public class BuyerForm_Activity extends AppCompatActivity {
 
     private void saveData() {
 
+        String FieldRequired = getResources().getString(R.string.FieldRequired);
+
         String buyerName = binding.etBuyerName.getEditText().getText().toString();
         String buyerPhoneNo = binding.etBuyerPhoneNo.getEditText().getText().toString();
         String sellingPrice = binding.etSellingPrice.getEditText().getText().toString();
         String productQuantity = binding.etProductQuantity.getEditText().getText().toString();
 
-        //  String t = "^((\\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$";
         String pattern = "^((\\+92)|(0092))-{0,1}\\d{3}-{0,1}\\d{7}$|^\\d{11}$|^\\d{4}-\\d{7}$";
         Matcher m;
 
         Pattern r = Pattern.compile(pattern);
         m = r.matcher(buyerPhoneNo);
 
-        if (m.find()) {
-            Toast.makeText(BuyerForm_Activity.this, "MATCH", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(BuyerForm_Activity.this, "NO MATCH", Toast.LENGTH_LONG).show();
-        }
 
         if (buyerName.isEmpty() || buyerPhoneNo.isEmpty() || sellingPrice.isEmpty() || productQuantity.isEmpty()) {
             if (buyerName.isEmpty()) {
-                binding.etBuyerName.setError("Enter buyer name");
+                binding.etBuyerName.setError(FieldRequired);
             } else {
                 binding.etBuyerName.setError(null);
             }
 
             if (buyerPhoneNo.isEmpty()) {
-                binding.etBuyerPhoneNo.setError("Enter buyer phoneNo");
+                binding.etBuyerPhoneNo.setError(FieldRequired);
             } else {
                 binding.etBuyerPhoneNo.setError(null);
             }
 
             if (sellingPrice.isEmpty()) {
-                binding.etSellingPrice.setError("Enter selling price");
+                binding.etSellingPrice.setError(FieldRequired);
             } else {
                 binding.etSellingPrice.setError(null);
             }
 
             if (productQuantity.isEmpty()) {
-                binding.etProductQuantity.setError("Enter product qty");
+                binding.etProductQuantity.setError(FieldRequired);
             } else {
                 binding.etProductQuantity.setError(null);
             }
@@ -114,8 +111,8 @@ public class BuyerForm_Activity extends AppCompatActivity {
             DataBaseHelper db = new DataBaseHelper(BuyerForm_Activity.this);
             SellProduct p = new SellProduct();
             Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            SimpleDateFormat timeFormate = new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
+            SimpleDateFormat timeFormate = new SimpleDateFormat("hh:mm a", Locale.ROOT);
             Product product = db.get_ProductById(productId);
             double margin = (Double.parseDouble(sellingPrice) / Double.parseDouble(productQuantity)) - Double.parseDouble(product.PerItemPrice);
             double remainingProduct = Double.parseDouble(product.Quantity) - Double.parseDouble(productQuantity);
@@ -138,10 +135,10 @@ public class BuyerForm_Activity extends AppCompatActivity {
                 if (isSaved) {
                     finish();
                 } else {
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.Somethingwentwrong, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Quantity Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.QuantityError, Toast.LENGTH_SHORT).show();
             }
         }
     }
