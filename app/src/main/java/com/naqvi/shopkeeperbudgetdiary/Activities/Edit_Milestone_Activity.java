@@ -37,7 +37,7 @@ public class Edit_Milestone_Activity extends AppCompatActivity {
         setContentView(view);
 
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
-        getSupportActionBar().setTitle("Add Milestone");
+        getSupportActionBar().setTitle("Edit Milestone");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -59,7 +59,7 @@ public class Edit_Milestone_Activity extends AppCompatActivity {
                 int year = cldr.get(Calendar.YEAR);
 
 // date picker dialog
-                datePicker = new DatePickerDialog(Edit_Milestone_Activity.this,
+                datePicker = new DatePickerDialog(Edit_Milestone_Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -87,7 +87,7 @@ public class Edit_Milestone_Activity extends AppCompatActivity {
                 int year = cldr.get(Calendar.YEAR);
 
 // date picker dialog
-                datePicker = new DatePickerDialog(Edit_Milestone_Activity.this,
+                datePicker = new DatePickerDialog(Edit_Milestone_Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -162,6 +162,7 @@ public class Edit_Milestone_Activity extends AppCompatActivity {
 
                 int isinserted = db.update_Milestone(milestone);
                 if (isinserted == 1) {
+                    db.calculate_Milestone();
                     finish();
                 } else {
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();

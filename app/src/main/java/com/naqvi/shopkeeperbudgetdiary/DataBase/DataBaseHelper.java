@@ -1,13 +1,17 @@
 package com.naqvi.shopkeeperbudgetdiary.DataBase;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -42,19 +46,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create  table " + Table_Products + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,Title TEXT,Price TEXT,Quantity TEXT,PerItemPrice TEXT,Date TEXT,Time TEXT,Address TEXT,Lat TEXT,Lng TEXT,Image TEXT,Email Text)";
+        String sql = "create table " + Table_Products + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,Title TEXT,Price TEXT,Quantity TEXT,PerItemPrice TEXT,Date TEXT,Time TEXT,Address TEXT,Lat TEXT,Lng TEXT,Image TEXT,Email Text)";
         db.execSQL(sql);
-        sql = "create  table " + Table_Users + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,Name TEXT,Email TEXT,Password TEXT)";
+        sql = "create table " + Table_Users + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,Name TEXT,Email TEXT,Password TEXT)";
         db.execSQL(sql);
-        sql = "create  table " + Table_SellProducts + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,ProductID TEXT,BuyerName TEXT,BuyerNumber TEXT,SellingPrice TEXT,Quantity TEXT,Margin TEXT,Date TEXT,Time TEXT,Image TEXT,Email TEXT)";
+        sql = "create table " + Table_SellProducts + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,ProductID TEXT,BuyerName TEXT,BuyerNumber TEXT,SellingPrice TEXT,Quantity TEXT,Margin TEXT,Date TEXT,Time TEXT,Image TEXT,Email TEXT)";
         db.execSQL(sql);
-        sql = "create  table " + Table_Milestones + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,StartDate TEXT,EndDate TEXT,TotalDays TEXT,TotalPrice TEXT,Percentage TEXT,AchievedPrice TEXT,Status TEXT,Email TEXT)";
+        sql = "create table " + Table_Milestones + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,StartDate TEXT,EndDate TEXT,TotalDays TEXT,TotalPrice TEXT,Percentage TEXT,AchievedPrice TEXT,Status TEXT,Email TEXT)";
         db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE  IF EXISTS " + Table_Products);
+        db.execSQL("DROP TABLE IF EXISTS " + Table_Products);
         onCreate(db);
     }
 
@@ -153,7 +157,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         isExist = res.moveToNext();
         res.close();
         db.close();
-        calculate_Milestone();
         return isExist;
     }
 
@@ -206,6 +209,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public ArrayList<Milestone> get_Milestones() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("Select * from " + Table_Milestones + " where Email = '" + pref.get_Email() + "'", null);
+        ArrayList<Milestone> list = new ArrayList<Milestone>();
+        while (res.moveToNext()) {
+
+            Milestone m = new Milestone();
+            m.ID = res.getInt(0);
+            m.StartDate = res.getString(1);
+            m.EndDate = res.getString(2);
+            m.TotalDays = res.getString(3);
+            m.TotalPrice = res.getString(4);
+            m.Percentage = res.getString(5);
+            m.AchievedPrice = res.getString(6);
+            m.Status = res.getString(7);
+            list.add(m);
+        }
+        res.close();
+        db.close();
+        return list;
+    }
+
+
+    public ArrayList<Milestone> get_IncompleteMilestones() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("Select * from " + Table_Milestones + " where Email = '" + pref.get_Email() + "' and Status = 'Incomplete' ", null);
         ArrayList<Milestone> list = new ArrayList<Milestone>();
         while (res.moveToNext()) {
 
@@ -377,7 +403,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     public void calculate_Milestone() {
-        ArrayList<Milestone> milestonesList = get_Milestones();
+        ArrayList<Milestone> milestonesList = get_IncompleteMilestones();
         Milestone m = new Milestone();
         SQLiteDatabase db;
         Cursor res;
@@ -400,8 +426,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         m.Status = "Completed";
                         m.Percentage = "100";
                         m.AchievedPrice = m.TotalPrice;
-                        //  sendNotification(m);
-                        showNotification();
+                        showNotification(m);
                     }
                     db.close();
                     update_Milestone(m);
@@ -415,38 +440,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    void sendNotification(Milestone m) {
+
+    void showNotification(Milestone m) {
+        int id = m.ID;
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "m.ID");
+        builder.setSmallIcon(R.drawable.img5);
+        builder.setContentTitle("Milestone Achieved");
+        builder.setContentText("You have achieved milestone of " + m.TotalPrice);
+        builder.setAutoCancel(true);
+        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
 
         Intent intent = new Intent(context, Milestone_Detail_Activity.class);
-        intent.putExtra("Id", m.ID);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("Id", m.ID + "");
+        pref.save_Id(m.ID+"");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        builder.addAction(R.drawable.img5, "Show Details", pendingIntent);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, m.ID + "")
-                .setSmallIcon(R.drawable.img4)
-                .setContentTitle("Milestone Achived")
-                .setContentText("you have achived milestone of " + m.TotalPrice)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(m.ID, builder.build());
-    }
-
-    void showNotification() {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.img5)
-                        .setContentTitle("Notifications Example")
-                        .setContentText("This is a test notification");
-
-        Intent notificationIntent = new Intent(context, Milestone_Detail_Activity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-
-        // Add as notification
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = m.ID + "";
+            NotificationChannel channel = new NotificationChannel(channelId, "Title", NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(channel);
+            builder.setChannelId(channelId);
+        }
+        manager.notify(id, builder.build());
     }
 }

@@ -22,4 +22,14 @@ public class SharedPreference {
     }
 
 
+    public void save_Id(String Id) {
+        SharedPreferences.Editor editor = ShredRef.edit();
+        editor.putString("Id", Id);
+        editor.commit();
+    }
+
+    public String get_Id() {
+        return ShredRef.getString("Id", "No Id Found");
+    }
+
 }

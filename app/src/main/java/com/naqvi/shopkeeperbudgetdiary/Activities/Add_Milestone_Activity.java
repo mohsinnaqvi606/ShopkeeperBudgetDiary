@@ -51,7 +51,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
                 int year = cldr.get(Calendar.YEAR);
 
 // date picker dialog
-                datePicker = new DatePickerDialog(Add_Milestone_Activity.this,
+                datePicker = new DatePickerDialog(Add_Milestone_Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -79,7 +79,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
                 int year = cldr.get(Calendar.YEAR);
 
 // date picker dialog
-                datePicker = new DatePickerDialog(Add_Milestone_Activity.this,
+                datePicker = new DatePickerDialog(Add_Milestone_Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -153,6 +153,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
 
                 boolean isinserted = db.insert_Milestone(m);
                 if (isinserted) {
+                    db.calculate_Milestone();
                     finish();
                 } else {
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();

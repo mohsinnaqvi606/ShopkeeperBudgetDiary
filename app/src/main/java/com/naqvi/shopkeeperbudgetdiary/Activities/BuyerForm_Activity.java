@@ -36,8 +36,6 @@ public class BuyerForm_Activity extends AppCompatActivity {
         setContentView(view);
 
         productId = getIntent().getStringExtra("Id");
-        Toast.makeText(this, productId + "", Toast.LENGTH_SHORT).show();
-
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
         getSupportActionBar().setTitle("Buyer Form");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

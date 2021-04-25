@@ -26,6 +26,7 @@ import com.naqvi.shopkeeperbudgetdiary.Models.Milestone;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
 import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.ImageUtil;
+import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
 
 import java.util.ArrayList;
 
@@ -34,12 +35,14 @@ public class Milestone_RecycleView_Adapter extends RecyclerView.Adapter<Mileston
     private ArrayList<Milestone> milestone_list = new ArrayList<Milestone>();
     private Context mContext;
     private DataBaseHelper db;
+    SharedPreference pref;
 
 
     public Milestone_RecycleView_Adapter(Context mContext, ArrayList<Milestone> milestone_list) {
         this.milestone_list = milestone_list;
         this.mContext = mContext;
         db = new DataBaseHelper(mContext);
+        pref = new SharedPreference(mContext);
     }
 
     @Override
@@ -73,7 +76,7 @@ public class Milestone_RecycleView_Adapter extends RecyclerView.Adapter<Mileston
 
                         if (options[item].equals("View")) {
                             Intent intent = new Intent(mContext, Milestone_Detail_Activity.class);
-                            intent.putExtra("Id", milestone_list.get(position).ID + "");
+                            pref.save_Id(milestone_list.get(position).ID + "");
                             mContext.startActivity(intent);
                             dialog.dismiss();
                         } else if (options[item].equals("Update")) {
