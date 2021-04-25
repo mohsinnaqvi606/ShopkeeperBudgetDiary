@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
 import com.naqvi.shopkeeperbudgetdiary.Fragment.MapsFragment;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
@@ -31,6 +32,7 @@ public class Add_Product_Activity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     Bitmap bitmap = null;
+    LatLng latLng = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +125,7 @@ public class Add_Product_Activity extends AppCompatActivity {
         String quantity = binding.etQuantity.getEditText().getText().toString();
         String address = binding.etAddress.getEditText().getText().toString();
 
-        if (title.isEmpty() || price.isEmpty() || quantity.isEmpty() || address.isEmpty() || bitmap == null) {
+        if (title.isEmpty() || price.isEmpty() || quantity.isEmpty() || address.isEmpty() || bitmap == null || latLng == null) {
             if (title.isEmpty()) {
                 binding.etTitle.setError(FieldRequired);
             } else {
@@ -152,6 +154,10 @@ public class Add_Product_Activity extends AppCompatActivity {
                 Toast.makeText(this, R.string.PleaseSelectImage, Toast.LENGTH_SHORT).show();
             }
 
+            if (latLng == null) {
+                Toast.makeText(this, R.string.setLocation, Toast.LENGTH_SHORT).show();
+            }
+
         } else {
             DataBaseHelper db = new DataBaseHelper(Add_Product_Activity.this);
             Product p = new Product();
@@ -169,8 +175,8 @@ public class Add_Product_Activity extends AppCompatActivity {
             p.Date = dateFormat.format(calendar.getTime());
             p.Time = timeFormate.format(calendar.getTime());
             p.Address = address;
-            p.Lat = "15.2324";
-            p.Lng = "74.233";
+            p.Lat = latLng.latitude + "";
+            p.Lng = latLng.longitude + "";
 
             boolean isSaved = db.insert_Product(p);
 
@@ -180,5 +186,10 @@ public class Add_Product_Activity extends AppCompatActivity {
                 Toast.makeText(this, R.string.Somethingwentwrong, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+    public void setLatLng(LatLng point) {
+        this.latLng = point;
     }
 }

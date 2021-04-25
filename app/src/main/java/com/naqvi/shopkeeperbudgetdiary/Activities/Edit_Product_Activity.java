@@ -15,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
+import com.naqvi.shopkeeperbudgetdiary.Fragment.MapsFragment1;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
 import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.ImageUtil;
@@ -33,6 +35,7 @@ public class Edit_Product_Activity extends AppCompatActivity {
     String Id;
     DataBaseHelper db;
     Product p;
+    LatLng latLng = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,16 @@ public class Edit_Product_Activity extends AppCompatActivity {
                 captureImage();
             }
         });
+
+
+        MapsFragment1 fragment = new MapsFragment1();
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(binding.fragmentContainerView.getId(), fragment, null)
+                .commit();
+
+        LatLng latLng = new LatLng(Double.parseDouble(p.Lat), Double.parseDouble(p.Lng));
+        fragment.setMarker(latLng);
     }
 
     private void captureImage() {
@@ -157,6 +170,7 @@ public class Edit_Product_Activity extends AppCompatActivity {
                 Toast.makeText(this, R.string.PleaseSelectImage, Toast.LENGTH_SHORT).show();
             }
 
+
         } else {
             DataBaseHelper db = new DataBaseHelper(Edit_Product_Activity.this);
 
@@ -168,6 +182,10 @@ public class Edit_Product_Activity extends AppCompatActivity {
             p.Quantity = quantity;
             p.Address = address;
             p.PerItemPrice = perItemPrice + "";
+            if (latLng != null) {
+                p.Lat = latLng.latitude + "";
+                p.Lng = latLng.longitude + "";
+            }
 
             int isUpdated = db.update_Product(p);
 
@@ -178,4 +196,9 @@ public class Edit_Product_Activity extends AppCompatActivity {
             }
         }
     }
+
+    public void setLatLng(LatLng point) {
+        this.latLng = point;
+    }
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">يوميات الميزانية لصاحب المتجر</string>
     <string name="StartingDate">تاريخ البدء</string>
     <string name="EndingDate">تاريخ الانتهاء</string>
@@ -40,7 +41,7 @@
     <string name="BuyerForm">نموذج المشتري</string>
     <string name="Dashboard">لوحة القيادة</string>
     <string name="EditMilestone">تحرير حدث</string>
-    <string name="EditProduct">Edit Product</string>
+    <string name="EditProduct">تحرير المنتج</string>
     <string name="MilestoneDetail">تفاصيل المعلم</string>
     <string name="Purchasedproduct">المنتج الذي تم شراؤه</string>
     <string name="View">رؤية</string>
@@ -54,11 +55,15 @@
     <string name="FieldRequired">حقل مطلوب</string>
     <string name="dateSmaller">تاريخ الانتهاء أصغر من تاريخ البدء</string>
     <string name="Somethingwentwrong">هناك خطأ ما</string>
-    <string name="cameraPermissionDenied">camera permission denied</string>
+    <string name="cameraPermissionDenied">تم رفض إذن الكاميرا</string>
     <string name="QuantityError">خطأ في الكمية</string>
     <string name="PleaseSelectImage">الرجاء تحديد الصورة</string>
     <string name="IncorrectCredentials">أوراق غير صحيحة</string>
     <string name="InvalidEmail">بريد إلكتروني خاطئ</string>
     <string name="EmailAlreadyRegistered">البريد الإلكتروني مسجل مسبقا</string>
+    <string name="setLocation">تعيين الموقع على الخريطة</string>
+    <string name="MilestoneAchieved">تحقق الإنجاز</string>
+    <string name="youhaveachievedMilestone">لقد حققت علامة فارقة من</string>
+    <string name="showDetails">اظهر التفاصيل</string>
 
 </resources>

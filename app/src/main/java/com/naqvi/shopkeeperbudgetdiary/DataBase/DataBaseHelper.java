@@ -432,7 +432,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     update_Milestone(m);
                 } catch (Exception e) {
                     db.close();
-                    Toast.makeText(context, e.getMessage() + "", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(context, e.getMessage() + "", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 db.close();
@@ -442,11 +442,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     void showNotification(Milestone m) {
+
+        String MilestoneAchieved = context.getResources().getString(R.string.MilestoneAchieved);
+        String showDetails = context.getResources().getString(R.string.showDetails);
+        String youhaveachievedMilestone = context.getResources().getString(R.string.youhaveachievedMilestone);
+
         int id = m.ID;
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "m.ID");
         builder.setSmallIcon(R.drawable.img5);
-        builder.setContentTitle("Milestone Achieved");
-        builder.setContentText("You have achieved milestone of " + m.TotalPrice);
+        builder.setContentTitle(MilestoneAchieved);
+        builder.setContentText(youhaveachievedMilestone + m.TotalPrice);
         builder.setAutoCancel(true);
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
 
@@ -454,7 +459,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         intent.putExtra("Id", m.ID + "");
         pref.save_Id(m.ID + "");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        builder.addAction(R.drawable.img5, "Show Details", pendingIntent);
+        builder.addAction(R.drawable.img5, showDetails, pendingIntent);
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

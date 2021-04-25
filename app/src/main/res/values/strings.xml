@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Shopkeeper Budget Diary</string>
     <string name="StartingDate">Starting Date</string>
     <string name="EndingDate">Ending Date</string>
@@ -60,10 +61,9 @@
     <string name="IncorrectCredentials">Incorrect credentials</string>
     <string name="InvalidEmail">invalidEmail</string>
     <string name="EmailAlreadyRegistered">Email Already Registered</string>
-
-
-
-
-
+    <string name="MilestoneAchieved">Milestone Achieved</string>
+    <string name="youhaveachievedMilestone">You have achieved milestone of </string>
+    <string name="setLocation">set location on map</string>
+    <string name="showDetails">Show Details</string>
 
 </resources>
