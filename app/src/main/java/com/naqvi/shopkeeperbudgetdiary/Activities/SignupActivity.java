@@ -8,11 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
-import com.naqvi.shopkeeperbudgetdiary.MainActivity;
 import com.naqvi.shopkeeperbudgetdiary.Models.User;
-import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
-import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityLoginBinding;
 import com.naqvi.shopkeeperbudgetdiary.databinding.ActivitySignupBinding;
 
 public class SignupActivity extends AppCompatActivity {
@@ -81,7 +78,7 @@ public class SignupActivity extends AppCompatActivity {
             if (res) {
                 pref.save_Email(email);
                 finish();
-                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                Intent intent = new Intent(SignupActivity.this, DashboardActivity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();

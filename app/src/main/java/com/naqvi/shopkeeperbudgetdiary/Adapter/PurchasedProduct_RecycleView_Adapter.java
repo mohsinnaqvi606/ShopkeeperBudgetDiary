@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.naqvi.shopkeeperbudgetdiary.Activities.BuyerForm_Activity;
+import com.naqvi.shopkeeperbudgetdiary.Activities.Edit_Product_Activity;
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
 import com.naqvi.shopkeeperbudgetdiary.R;
@@ -70,8 +73,19 @@ public class PurchasedProduct_RecycleView_Adapter extends RecyclerView.Adapter<P
                     public void onClick(DialogInterface dialog, int item) {
 
                         if (options[item].equals("View/Update")) {
+                            Intent intent = new Intent(mContext, Edit_Product_Activity.class);
+                            intent.putExtra("Id", products_list.get(position).ID + "");
+                            mContext.startActivity(intent);
                             dialog.dismiss();
                         } else if (options[item].equals("Sell")) {
+                            Double remainingItems = Double.parseDouble(products_list.get(position).Quantity);
+                            if (remainingItems > 0) {
+                                Intent intent = new Intent(mContext, BuyerForm_Activity.class);
+                                intent.putExtra("Id", products_list.get(position).ID + "");
+                                mContext.startActivity(intent);
+                            } else {
+                                Toast.makeText(mContext, "No Item Left", Toast.LENGTH_SHORT).show();
+                            }
                             dialog.dismiss();
                         } else if (options[item].equals("Delete")) {
                             int isDeleted = db.delete_Product(products_list.get(position).ID + "");

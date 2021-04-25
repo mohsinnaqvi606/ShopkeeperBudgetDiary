@@ -30,6 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         binding.tvtotal.setText("Total purchased: " + db.get_Products().size());
         binding.tvsold.setText("Total sold: " + db.get_SellProducts().size());
+        binding.tvmilestone.setText("Total Milestones: " + db.get_Milestones().size());
 
         binding.productsCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,8 +43,22 @@ public class DashboardActivity extends AppCompatActivity {
         binding.soldCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(DashboardActivity.this, SoldProduct_Activity.class);
+                startActivity(intent);
             }
         });
+
+        binding.milestoneCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, Milestone_Activity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

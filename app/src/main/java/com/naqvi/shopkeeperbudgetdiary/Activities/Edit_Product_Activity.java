@@ -30,6 +30,9 @@ public class Edit_Product_Activity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     Bitmap bitmap = null;
+    String Id;
+    DataBaseHelper db;
+    Product p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,21 @@ public class Edit_Product_Activity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        Id = getIntent().getStringExtra("Id");
+        db = new DataBaseHelper(this);
+        p = db.get_ProductById(Id);
 
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
         getSupportActionBar().setTitle("Add Product");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        bitmap = ImageUtil.convertToImage(p.Image);
+        binding.updateImg1.setImageBitmap(bitmap);
+        binding.etTitle.getEditText().setText(p.Title);
+        binding.etPrice.getEditText().setText(p.Price);
+        binding.etQuantity.getEditText().setText(p.Quantity);
+        binding.etAddress.getEditText().setText(p.Address);
 
         binding.btnupdateImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,24 +157,19 @@ public class Edit_Product_Activity extends AppCompatActivity {
 
         } else {
             DataBaseHelper db = new DataBaseHelper(Edit_Product_Activity.this);
-            Product p = new Product();
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            SimpleDateFormat timeFormate = new SimpleDateFormat("hh:mm a");
+
+            double perItemPrice = Double.parseDouble(price) / Double.parseDouble(quantity);
 
             p.Image = ImageUtil.convertToBase64(bitmap);
             p.Title = title;
             p.Price = price;
             p.Quantity = quantity;
-            p.Date = dateFormat.format(calendar.getTime());
-            p.Time = timeFormate.format(calendar.getTime());
             p.Address = address;
-            p.Lat = "15.2324";
-            p.Lng = "74.233";
+            p.PerItemPrice = perItemPrice + "";
 
-            boolean isSaved = db.insert_Product(p);
+            int isUpdated = db.update_Product(p);
 
-            if (isSaved) {
+            if (isUpdated == 1) {
                 finish();
             } else {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();

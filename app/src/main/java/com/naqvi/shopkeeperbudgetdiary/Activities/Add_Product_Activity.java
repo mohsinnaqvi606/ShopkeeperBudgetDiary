@@ -149,10 +149,13 @@ public class Add_Product_Activity extends AppCompatActivity {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat timeFormate = new SimpleDateFormat("hh:mm a");
 
+            double perItemPrice = Double.parseDouble(price) / Double.parseDouble(quantity);
+
             p.Image = ImageUtil.convertToBase64(bitmap);
             p.Title = title;
             p.Price = price;
             p.Quantity = quantity;
+            p.PerItemPrice = perItemPrice + "";
             p.Date = dateFormat.format(calendar.getTime());
             p.Time = timeFormate.format(calendar.getTime());
             p.Address = address;

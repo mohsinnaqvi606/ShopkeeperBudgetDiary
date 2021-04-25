@@ -8,12 +8,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
-import com.naqvi.shopkeeperbudgetdiary.MainActivity;
 import com.naqvi.shopkeeperbudgetdiary.Models.User;
-import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
 import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityLoginBinding;
-import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityMainBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -49,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
 
-        email = "m@gmail.com";
-        password = "123";
+//        email = "m@gmail.com";
+//        password = "123";
 
         if (email.isEmpty() || password.isEmpty()) {
             if (email.isEmpty()) {
