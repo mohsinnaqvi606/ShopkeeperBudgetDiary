@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:inputType="text"
-                android:digits="abcdefghijklmnopqrstuvwxyz"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
                 android:textColor="#191944"
                 android:textSize="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -54,7 +54,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:inputType="number"
+                android:inputType="phone"
                 android:textColor="#191944"
                 android:textSize="15dp" />
         </com.google.android.material.textfield.TextInputLayout>

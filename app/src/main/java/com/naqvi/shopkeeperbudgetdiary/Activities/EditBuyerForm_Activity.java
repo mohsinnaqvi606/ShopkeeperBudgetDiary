@@ -1,9 +1,6 @@
 
 package com.naqvi.shopkeeperbudgetdiary.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,12 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
 import com.naqvi.shopkeeperbudgetdiary.Models.SellProduct;
 import com.naqvi.shopkeeperbudgetdiary.R;
-import com.naqvi.shopkeeperbudgetdiary.Utils.ImageUtil;
-import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityAddProductBinding;
+import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
 import com.naqvi.shopkeeperbudgetdiary.databinding.ActivityBuyerFormBinding;
 
 import java.text.SimpleDateFormat;
@@ -26,10 +24,12 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BuyerForm_Activity extends AppCompatActivity {
+public class EditBuyerForm_Activity extends AppCompatActivity {
 
     ActivityBuyerFormBinding binding;
-    String productId;
+    DataBaseHelper db;
+    SellProduct p = new SellProduct();
+    SharedPreference pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +38,19 @@ public class BuyerForm_Activity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        productId = getIntent().getStringExtra("Id");
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_gradient));
         getSupportActionBar().setTitle(R.string.BuyerForm);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        pref = new SharedPreference(this);
+        db = new DataBaseHelper(this);
+        p = db.get_SellProductById(pref.get_Id());
+
+        binding.etBuyerName.getEditText().setText(p.BuyerName);
+        binding.etBuyerPhoneNo.getEditText().setText(p.BuyerNumber);
+        binding.etSellingPrice.getEditText().setText(p.SellingPrice);
+        binding.etProductQuantity.getEditText().setText(p.Quantity);
 
         binding.etBuyerPhoneNo.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -132,32 +140,31 @@ public class BuyerForm_Activity extends AppCompatActivity {
                 binding.etProductQuantity.setError(null);
             }
 
+
         } else {
-            DataBaseHelper db = new DataBaseHelper(BuyerForm_Activity.this);
-            SellProduct p = new SellProduct();
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
-            SimpleDateFormat timeFormate = new SimpleDateFormat("hh:mm a", Locale.ROOT);
-            Product product = db.get_ProductById(productId);
+            Product product = db.get_ProductById(p.ProductID);
+
+            double previousqyt = Double.parseDouble(p.Quantity);
+            double currentqyt = Double.parseDouble(productQuantity);
+            double productqyt = Double.parseDouble(product.Quantity);
+
+            double rem = (productqyt + previousqyt) - currentqyt;
+
             double margin = (Double.parseDouble(sellingPrice) / Double.parseDouble(productQuantity)) - Double.parseDouble(product.PerItemPrice);
             double remainingProduct = Double.parseDouble(product.Quantity) - Double.parseDouble(productQuantity);
 
-            if (remainingProduct >= 0) {
+            if (rem >= 0) {
 
-                product.Quantity = remainingProduct + "";
+                product.Quantity = rem + "";
                 db.update_Product(product);
-                p.Image = product.Image;
                 p.BuyerName = buyerName;
                 p.BuyerNumber = buyerPhoneNo;
-                p.Date = dateFormat.format(calendar.getTime());
-                p.Time = timeFormate.format(calendar.getTime());
-                p.ProductID = productId;
                 p.SellingPrice = sellingPrice;
                 p.Quantity = productQuantity;
                 p.Margin = (margin * Double.parseDouble(productQuantity)) + "";
-                boolean isSaved = db.insert_SellProduct(p);
+                int isUpdated = db.update_SoldProduct(p);
 
-                if (isSaved) {
+                if (isUpdated == 1) {
                     finish();
                 } else {
                     Toast.makeText(this, R.string.Somethingwentwrong, Toast.LENGTH_SHORT).show();

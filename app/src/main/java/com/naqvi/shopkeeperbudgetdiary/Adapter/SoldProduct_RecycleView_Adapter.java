@@ -18,12 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.naqvi.shopkeeperbudgetdiary.Activities.BuyerForm_Activity;
+import com.naqvi.shopkeeperbudgetdiary.Activities.EditBuyerForm_Activity;
 import com.naqvi.shopkeeperbudgetdiary.Activities.Edit_Product_Activity;
 import com.naqvi.shopkeeperbudgetdiary.DataBase.DataBaseHelper;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
 import com.naqvi.shopkeeperbudgetdiary.Models.SellProduct;
 import com.naqvi.shopkeeperbudgetdiary.R;
 import com.naqvi.shopkeeperbudgetdiary.Utils.ImageUtil;
+import com.naqvi.shopkeeperbudgetdiary.Utils.SharedPreference;
 
 import java.util.ArrayList;
 
@@ -32,12 +34,14 @@ public class SoldProduct_RecycleView_Adapter extends RecyclerView.Adapter<SoldPr
     private ArrayList<SellProduct> products_list = new ArrayList<SellProduct>();
     private Context mContext;
     DataBaseHelper db;
+    SharedPreference pref;
 
 
     public SoldProduct_RecycleView_Adapter(Context mContext, ArrayList<SellProduct> products_list) {
         this.products_list = products_list;
         this.mContext = mContext;
         db = new DataBaseHelper(mContext);
+        pref = new SharedPreference(mContext);
     }
 
     @Override
@@ -63,10 +67,11 @@ public class SoldProduct_RecycleView_Adapter extends RecyclerView.Adapter<SoldPr
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String View_Update = mContext.getResources().getString(R.string.ViewUpdate);
                 String Delete = mContext.getResources().getString(R.string.Delete);
                 String Cancel = mContext.getResources().getString(R.string.Cancel);
 
-                final CharSequence[] options = {Delete, Cancel};
+                final CharSequence[] options = {View_Update, Delete, Cancel};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(R.string.ProductOptions);
@@ -77,6 +82,10 @@ public class SoldProduct_RecycleView_Adapter extends RecyclerView.Adapter<SoldPr
                     public void onClick(DialogInterface dialog, int item) {
 
                         if (item == 0) {
+                            pref.save_Id(products_list.get(position).ID+"");
+                            Intent intent = new Intent(mContext, EditBuyerForm_Activity.class);
+                            mContext.startActivity(intent);
+                        } else if (item == 1) {
                             Product p = db.get_ProductById(products_list.get(position).ProductID + "");
                             double totalQuantity = Double.parseDouble(p.Quantity);
                             double newQuantity = Double.parseDouble(products_list.get(position).Quantity);
@@ -90,7 +99,7 @@ public class SoldProduct_RecycleView_Adapter extends RecyclerView.Adapter<SoldPr
                                 notifyDataSetChanged();
                             }
                             dialog.dismiss();
-                        } else if (item == 1) {
+                        } else if (item == 2) {
                             dialog.dismiss();
                         }
                     }

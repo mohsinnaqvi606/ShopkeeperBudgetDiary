@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.naqvi.shopkeeperbudgetdiary.Activities.Add_Milestone_Activity;
+import com.naqvi.shopkeeperbudgetdiary.Activities.Edit_Milestone_Activity;
 import com.naqvi.shopkeeperbudgetdiary.Activities.Milestone_Detail_Activity;
 import com.naqvi.shopkeeperbudgetdiary.Models.Milestone;
 import com.naqvi.shopkeeperbudgetdiary.Models.Product;
@@ -337,18 +339,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public SellProduct get_SellProductById(String Id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("Select * from " + Table_SellProducts + " where Email = '" + pref.get_Email() + "' and ID = '" + Id + "'", null);
-        res.moveToNext();
         SellProduct p = new SellProduct();
-        p.ID = res.getInt(0);
-        p.ProductID = res.getString(1);
-        p.BuyerName = res.getString(2);
-        p.BuyerNumber = res.getString(3);
-        p.SellingPrice = res.getString(4);
-        p.Quantity = res.getString(5);
-        p.Margin = res.getString(6);
-        p.Date = res.getString(7);
-        p.Time = res.getString(8);
-        p.Image = res.getString(9);
+        if (res.moveToNext()) {
+            p.ID = res.getInt(0);
+            p.ProductID = res.getString(1);
+            p.BuyerName = res.getString(2);
+            p.BuyerNumber = res.getString(3);
+            p.SellingPrice = res.getString(4);
+            p.Quantity = res.getString(5);
+            p.Margin = res.getString(6);
+            p.Date = res.getString(7);
+            p.Time = res.getString(8);
+            p.Image = res.getString(9);
+        }
 
         res.close();
         db.close();
@@ -370,7 +373,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put("Image", s.Image);
         contentValues.put("Email", pref.get_Email());
 
-        int isUpdated = db.update(Table_Products, contentValues, "ID = ?", new String[]{s.ID + ""});
+        int isUpdated = db.update(Table_SellProducts, contentValues, "ID = ?", new String[]{s.ID + ""});
         db.close();
 
         return isUpdated;
@@ -432,7 +435,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     update_Milestone(m);
                 } catch (Exception e) {
                     db.close();
-                  //  Toast.makeText(context, e.getMessage() + "", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(context, e.getMessage() + "", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 db.close();
@@ -444,22 +447,42 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     void showNotification(Milestone m) {
 
         String MilestoneAchieved = context.getResources().getString(R.string.MilestoneAchieved);
-        String showDetails = context.getResources().getString(R.string.showDetails);
+        String Update = context.getResources().getString(R.string.Update);
+        String Add = context.getResources().getString(R.string.Add);
+        String View = context.getResources().getString(R.string.View);
         String youhaveachievedMilestone = context.getResources().getString(R.string.youhaveachievedMilestone);
+
+        Intent addIntent = new Intent(context, Add_Milestone_Activity.class);
+        addIntent.putExtra("Id", m.ID + "");
+        pref.save_Id(m.ID + "");
+        PendingIntent addPendingIntent = PendingIntent.getActivity(context, 0, addIntent, 0);
+
+
+        Intent updateIntent = new Intent(context, Edit_Milestone_Activity.class);
+        updateIntent.putExtra("Id", m.ID + "");
+        pref.save_Id(m.ID + "");
+        PendingIntent updatePendingIntent = PendingIntent.getActivity(context, 0, updateIntent, 0);
+
+
+        Intent viewIntent = new Intent(context, Milestone_Detail_Activity.class);
+        viewIntent.putExtra("Id", m.ID + "");
+        pref.save_Id(m.ID + "");
+        PendingIntent viewPendingIntent = PendingIntent.getActivity(context, 0, viewIntent, 0);
+
 
         int id = m.ID;
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "m.ID");
         builder.setSmallIcon(R.drawable.img5);
         builder.setContentTitle(MilestoneAchieved);
-        builder.setContentText(youhaveachievedMilestone + m.TotalPrice);
+        builder.setContentText(youhaveachievedMilestone + " " + m.TotalPrice);
         builder.setAutoCancel(true);
+        builder.setPriority(Notification.DEFAULT_ALL);
+      //  builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+        // builder.setContentIntent(viewPendingIntent);
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
-
-        Intent intent = new Intent(context, Milestone_Detail_Activity.class);
-        intent.putExtra("Id", m.ID + "");
-        pref.save_Id(m.ID + "");
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        builder.addAction(R.drawable.img5, showDetails, pendingIntent);
+        builder.addAction(R.drawable.img5, Add, addPendingIntent);
+        builder.addAction(R.drawable.img5, Update, updatePendingIntent);
+        builder.addAction(R.drawable.img5, View, viewPendingIntent);
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

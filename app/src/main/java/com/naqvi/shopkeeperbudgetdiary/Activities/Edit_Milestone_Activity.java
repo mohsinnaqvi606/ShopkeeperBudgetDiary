@@ -2,6 +2,7 @@ package com.naqvi.shopkeeperbudgetdiary.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,7 +61,7 @@ public class Edit_Milestone_Activity extends AppCompatActivity {
                 int year = cldr.get(Calendar.YEAR);
 
 // date picker dialog
-                datePicker = new DatePickerDialog(Edit_Milestone_Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert,
+                datePicker = new DatePickerDialog(Edit_Milestone_Activity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -88,7 +89,7 @@ public class Edit_Milestone_Activity extends AppCompatActivity {
                 int year = cldr.get(Calendar.YEAR);
 
 // date picker dialog
-                datePicker = new DatePickerDialog(Edit_Milestone_Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert,
+                datePicker = new DatePickerDialog(Edit_Milestone_Activity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -189,7 +190,7 @@ public class Edit_Milestone_Activity extends AppCompatActivity {
 
             long a = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
             milestone.TotalDays = (a + 1) + "";
-            if (diff > 0) {
+            if (diff >= 0) {
                 return true;
             } else {
                 return false;

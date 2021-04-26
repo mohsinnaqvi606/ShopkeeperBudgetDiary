@@ -91,7 +91,7 @@ public class PurchasedProduct_RecycleView_Adapter extends RecyclerView.Adapter<P
                                 intent.putExtra("Id", products_list.get(position).ID + "");
                                 mContext.startActivity(intent);
                             } else {
-                                Toast.makeText(mContext, "No Item Left", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, R.string.NoItemLeft, Toast.LENGTH_SHORT).show();
                             }
                             dialog.dismiss();
                         } else if (item == 2) {

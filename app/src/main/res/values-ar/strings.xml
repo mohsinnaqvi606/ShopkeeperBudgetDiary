@@ -56,7 +56,7 @@
     <string name="dateSmaller">تاريخ الانتهاء أصغر من تاريخ البدء</string>
     <string name="Somethingwentwrong">هناك خطأ ما</string>
     <string name="cameraPermissionDenied">تم رفض إذن الكاميرا</string>
-    <string name="QuantityError">خطأ في الكمية</string>
+    <string name="QuantityError">كمية غير صحيحة</string>
     <string name="PleaseSelectImage">الرجاء تحديد الصورة</string>
     <string name="IncorrectCredentials">أوراق غير صحيحة</string>
     <string name="InvalidEmail">بريد إلكتروني خاطئ</string>
@@ -64,6 +64,12 @@
     <string name="setLocation">تعيين الموقع على الخريطة</string>
     <string name="MilestoneAchieved">تحقق الإنجاز</string>
     <string name="youhaveachievedMilestone">لقد حققت علامة فارقة من</string>
-    <string name="showDetails">اظهر التفاصيل</string>
+    <string name="invalidNumber">رقم غير صالح</string>
+    <string name="Arabic">عربى</string>
+    <string name="SelectLanguage">اختار اللغة</string>
+    <string name="NoItemLeft">لم يتبق أي عنصر</string>
+    <string name="Add">يضيف</string>
+    <string name="Language">لغة</string>
+    <string name="Logout">تسجيل خروج</string>
 
 </resources>

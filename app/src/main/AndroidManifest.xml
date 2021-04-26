@@ -40,6 +40,7 @@
         <activity android:name=".Activities.Milestone_Activity" />
         <activity android:name=".Activities.Milestone_Detail_Activity" />
         <activity android:name=".Activities.SoldProduct_Activity" />
+        <activity android:name=".Activities.EditBuyerForm_Activity" />
         <activity android:name=".Activities.BuyerForm_Activity" />
         <activity android:name=".Activities.Edit_Product_Activity" />
         <activity android:name=".Activities.Add_Product_Activity"

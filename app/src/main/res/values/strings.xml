@@ -51,12 +51,12 @@
     <string name="Cancel">Cancel</string>
     <string name="ViewUpdate">View/Update</string>
     <string name="Sell">Sell</string>
-    <string name="ProductOptions">ProductOptions</string>
+    <string name="ProductOptions">Product Options</string>
     <string name="FieldRequired">Field Required</string>
     <string name="dateSmaller">Ending Date is smaller than Starting Date</string>
     <string name="Somethingwentwrong">Something went wrong</string>
     <string name="cameraPermissionDenied">camera permission denied</string>
-    <string name="QuantityError">Quantity Error</string>
+    <string name="QuantityError">Invalid Quantity</string>
     <string name="PleaseSelectImage">Please select image</string>
     <string name="IncorrectCredentials">Incorrect credentials</string>
     <string name="InvalidEmail">invalidEmail</string>
@@ -64,6 +64,13 @@
     <string name="MilestoneAchieved">Milestone Achieved</string>
     <string name="youhaveachievedMilestone">You have achieved milestone of </string>
     <string name="setLocation">set location on map</string>
-    <string name="showDetails">Show Details</string>
+    <string name="invalidNumber">Invalid Number</string>
+    <string name="Arabic">Arabic</string>
+    <string name="SelectLanguage">Select Language</string>
+    <string name="NoItemLeft">No Item Left</string>
+    <string name="Add">Add</string>
+    <string name="Language">Language</string>
+    <string name="Logout">Logout</string>
+
 
 </resources>

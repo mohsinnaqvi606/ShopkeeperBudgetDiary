@@ -55,11 +55,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:digits="abcdefghijklmnopqrstuvwxyz"
                 android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
                 android:drawablePadding="10dp"
                 android:hint="@string/FullName"
-                android:inputType="textPersonName"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
                 android:maxLength="50"
                 android:textColor="#191944"
                 android:textSize="15dp" />

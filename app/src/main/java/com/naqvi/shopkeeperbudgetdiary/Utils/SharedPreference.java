@@ -32,4 +32,15 @@ public class SharedPreference {
         return ShredRef.getString("Id", "No Id Found");
     }
 
+
+    public void save_Language(String Language) {
+        SharedPreferences.Editor editor = ShredRef.edit();
+        editor.putString("Language", Language);
+        editor.commit();
+    }
+
+    public String get_Language() {
+        return ShredRef.getString("Language", "No Language Found");
+    }
+
 }

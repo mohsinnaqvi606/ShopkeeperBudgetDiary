@@ -2,7 +2,9 @@ package com.naqvi.shopkeeperbudgetdiary.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +55,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
                 int year = cldr.get(Calendar.YEAR);
 
 // date picker dialog
-                datePicker = new DatePickerDialog(Add_Milestone_Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert,
+                datePicker = new DatePickerDialog(Add_Milestone_Activity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -72,7 +74,6 @@ public class Add_Milestone_Activity extends AppCompatActivity {
             }
         });
 
-
         binding.etEndingDate.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +83,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
                 int year = cldr.get(Calendar.YEAR);
 
 // date picker dialog
-                datePicker = new DatePickerDialog(Add_Milestone_Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert,
+                datePicker = new DatePickerDialog(Add_Milestone_Activity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -172,8 +173,6 @@ public class Add_Milestone_Activity extends AppCompatActivity {
 
     boolean checkDates(String startingDate, String endingDate) {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
-//        String inputString1 = s.sfrom;
-//        String inputString2 = s.eTo;
 
         try {
             Date date1 = df.parse(startingDate);
@@ -182,7 +181,7 @@ public class Add_Milestone_Activity extends AppCompatActivity {
 
             long a = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
             m.TotalDays = (a + 1) + "";
-            if (diff > 0) {
+            if (diff >= 0) {
                 return true;
             } else {
                 return false;
